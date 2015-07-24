@@ -39,6 +39,38 @@ public:
         return this->wordWithScore;
     }
 };
+void getFile(string filename, ifstream& file);
+void sortDictionary(vector<Word>& dictionary);
+vector<string> getMaxScoreScrabble(string rack, vector<Word> dictionary);
+
+
+int main()
+{
+    ifstream file;
+    string line;
+    vector<Word> dictionary;
+
+    getFile("dictionary", file);
+
+    if (file.is_open())
+    {
+        while (getline (file,line))
+        {
+            Word word(line);
+            dictionary.push_back(word);
+        }
+    }
+
+    sortDictionary(dictionary);
+
+    string rack="a_cd";
+    vector<string> wordSuggestions = getMaxScoreScrabble(rack, dictionary);
+    for(string s : wordSuggestions){
+        cout<<s<<"\n";
+    }
+
+
+}
 
 void getFile(string filename, ifstream& file)
 {
@@ -94,29 +126,5 @@ vector<string> getMaxScoreScrabble(string rack, vector<Word> dictionary)
     return wordSuggestions;
 }
 
-int main()
-{
-    ifstream file;
-    string line;
-    vector<Word> dictionary;
 
-    getFile("dictionary", file);
-
-    if (file.is_open())
-    {
-        while (getline (file,line))
-        {
-            Word word(line);
-            dictionary.push_back(word);
-        }
-    }
-
-    sortDictionary(dictionary);
-
-    string rack="a_cd";
-    vector<string> wordSuggestions = getMaxScoreScrabble(rack, dictionary);
-    for(string s : wordSuggestions){
-        cout<<s<<"\n";
-    }
-}
 
